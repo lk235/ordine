@@ -18,5 +18,15 @@ input_df = pd.read_excel(input_file)
 output_df = input_df
 barcode_title = unicode('商品条码', "utf8", errors="ignore")
 # print input_df[barcode_title]
-for index, row in input_df.iterrows():
-    if
+
+
+Esempio_ordine_new = pd.DataFrame(data=None,columns=Esempio_ordine.columns)
+
+Esempio_ordine_new['cod_articolo'] = input_df[barcode_title]
+
+
+for index, row in Esempio_ordine_new.iterrows():
+    print index
+    row['cod_articolo'] = 1
+
+print Esempio_ordine_new
