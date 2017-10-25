@@ -37,18 +37,33 @@ index_len = len(Esempio_ordine_new.index)
 Esempio_ordine_new['version'] = ['1.0']*index_len
 Esempio_ordine_new['ID_cliente'] = ['4E4B484E434D']* index_len
 Esempio_ordine_new['codice_cliente'] = ['013428'] * index_len
-Esempio_ordine_new['cod_articolo'] = input_df[barcode_title]
+Esempio_ordine_new['barcode'] = input_df[barcode_title]
 # Esempio_ordine_new['nr_ordine'] =
 Esempio_ordine_new['data_ordine'] = input_df[order_date_title]
 Esempio_ordine_new['data_ordine'] = Esempio_ordine_new['data_ordine'].apply(replace_dot)
+Esempio_ordine_new['destmerce_denominazione'] = ['Punto Vendita / Utente finale'] * index_len
+Esempio_ordine_new['destmerce_indirizzo'] = ['Via delle cosmee,1'] * index_len
+Esempio_ordine_new['destmerce_localita'] = ['ROMA'] * index_len
+Esempio_ordine_new['destmerce_provincia'] = ['RM'] * index_len
+Esempio_ordine_new['destmerce_cap'] = ['00134'] * index_len
+Esempio_ordine_new['destmerce_telefono'] = ['3271388371'] * index_len
+Esempio_ordine_new['note_spedizione'] = ['chiuso domenica'] * index_len
+Esempio_ordine_new['comunicazioni_interne'] = ['spedire catalogo. grazie'] * index_len
+Esempio_ordine_new = pd.merge(Esempio_ordine_new,barcode_table,on='barcode',how='left')
+Esempio_ordine_new = Esempio_ordine_new[Esempio_ordine_new['cod_articolo1'].notnull()]
+Esempio_ordine_new['cod_articolo'] = Esempio_ordine_new['cod_articolo1']
+Esempio_ordine_new = Esempio_ordine_new.drop('cod_articolo1', axis=1)
+Esempio_ordine_new = Esempio_ordine_new.drop('barcode', axis=1)
+# Esempio_ordine_new['nr_riga'] =
+# Esempio_ordine_new['totale_righe'] =
 for index, row in Esempio_ordine_new.iterrows():
     print index
     row['cod_articolo'] = 00000000000
 
 print Esempio_ordine_new.index
-# Esempio_ordine_new['data_ordine'].astype('datetime64')
+# Esempio_ordine_new['data_ordine'].astype('datetime64[ns]')
 # Esempio_ordine_new['data_ordine'] = pd.to_datetime(Esempio_ordine_new['data_ordine'],format="%d/%m/%Y %H:%M:%S")
-print Esempio_ordine_new['data_ordine']
+# print Esempio_ordine_new['data_ordine']
 # print Esempio_ordine_new['cod_articolo']
 
 # test =  pd.to_datetime(['08/10/2017'])
